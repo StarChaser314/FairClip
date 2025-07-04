@@ -15,7 +15,8 @@ model:
 
 datasets:
   fundus:
-    summary_type: original # [original, pmc-llama, med42, gpt-4]
+    # summary_type: original # [original, pmc-llama, med42, gpt-4]
+    summary_type: gpt-4
     max_words: 50
   # coco_caption:
   #   vis_processor:

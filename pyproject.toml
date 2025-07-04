@@ -1,0 +1,14 @@
+[project]
+name = "fairclip"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = "~=3.9.19"
+dependencies = [
+    "diffusers==0.16.0",
+    "huggingface-hub==0.17.3",
+    "numpy==1.23.5",
+    "open-clip-torch==2.23.0",
+    "salesforce-lavis",
+    "torch==2.2.2",
+]

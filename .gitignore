@@ -1,5 +1,6 @@
 FUNDUS_Dataset
 LAVIS/lavis/PRETRAIN_EXPS
+dataset-001/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

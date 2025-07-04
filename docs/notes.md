@@ -1,0 +1,1 @@
+BLIS_ARCH=generic uv sync
