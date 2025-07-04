@@ -1,11 +1,11 @@
 #!/bin/bash
-DATASET_DIR=/PATH-TO_DATASET/FairVLMed
+DATASET_DIR=/home/arch/Codes/FairCLIP/FUNDUS_Dataset/FairVLMed
 RESULT_DIR=.
 MODEL_ARCH=vit-b16 # Options: vit-b16 | vit-l14
 NUM_EPOCH=10
 MODALITY_TYPE='slo_fundus'
 ATTRIBUTE_TYPE=race # Options: race | gender | ethnicity | language
-SUMMARIZED_NOTE_FILE=gpt4_summarized_notes.csv
+SUMMARIZED_NOTE_FILE=gpt-4_summarized_notes.csv
 LR=1e-5
 BATCH_SIZE=32
 

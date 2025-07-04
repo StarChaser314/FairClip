@@ -9,7 +9,7 @@ model:
   load_pretrained: True
   # intialize stage 2 pretraining from stage 1 pretrained model
   # pretrained: "https://storage.googleapis.com/sfr-vision-language-research/LAVIS/models/BLIP2/blip2_pretrained_vitL.pth"
-  pretrained: "../../../../../PRETRAIN_EXPS/Pretrain_Stage1/TBD/checkpoint_49.pth"
+  pretrained: "PRETRAIN_EXPS/Pretrain_Stage1/TBD/checkpoint_49.pth"
   freeze_vit: True
   vit_model: clip_L
   vision_encoder_weights: clip # [clip, pmc-clip, fundus-clip]
@@ -17,7 +17,8 @@ model:
 
 datasets:
   fundus:
-    summary_type: pmc-llama # [original, pmc-llama, med42, gpt-4]
+    summary_type: gpt-4 # [original, pmc-llama, med42, gpt-4]
+    max_words: 50
   # coco_caption:
   #   vis_processor:
   #       train:
