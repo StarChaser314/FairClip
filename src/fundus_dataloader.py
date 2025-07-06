@@ -24,7 +24,7 @@ class FUNDUS_Dataset(torch.utils.data.Dataset):
         elif subset == "val":
             self.dataset_dir = os.path.join(dataset_dir, "Validation")
         elif subset == "test":
-            self.dataset_dir = os.path.join(dataset_dir, "Test")
+            self.dataset_dir = os.path.join(dataset_dir, "Testing")
         else:
             raise Exception("invalid subset specified")
         self.subset = subset

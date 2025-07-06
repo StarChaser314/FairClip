@@ -1,8 +1,8 @@
 """
- Copyright (c) 2022, salesforce.com, inc.
- All rights reserved.
- SPDX-License-Identifier: BSD-3-Clause
- For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
+Copyright (c) 2022, salesforce.com, inc.
+All rights reserved.
+SPDX-License-Identifier: BSD-3-Clause
+For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 """
 
 import logging
@@ -10,15 +10,22 @@ import os
 
 import torch
 import torch.distributed as dist
-from lavis.common.dist_utils import get_rank, get_world_size, is_main_process, is_dist_avail_and_initialized
+from lavis.common.dist_utils import (
+    get_rank,
+    get_world_size,
+    is_main_process,
+    is_dist_avail_and_initialized,
+)
 from lavis.common.logger import MetricLogger, SmoothedValue
 from lavis.common.registry import registry
 from lavis.datasets.data_utils import prepare_sample
 
 import sys
-sys.path.append('../src')
-from fundus_dataloader import FUNDUS_Dataset
-from lavis.processors.blip_processors import Blip2ImageTrainProcessor, BlipCaptionProcessor
+from lavis.processors.blip_processors import (
+    Blip2ImageTrainProcessor,
+    BlipCaptionProcessor,
+)
+
 
 class BaseTask:
     def __init__(self, **kwargs):
@@ -47,6 +54,9 @@ class BaseTask:
         Returns:
             dict: Dictionary of torch.utils.data.Dataset objects by split.
         """
+        sys.path.append("../src")
+        from fundus_dataloader import FUNDUS_Dataset
+
         datasets = dict()
 
         datasets_config = cfg.datasets_cfg
@@ -54,13 +64,23 @@ class BaseTask:
         assert len(datasets_config) > 0, "At least one dataset has to be specified."
 
         for name in datasets_config:
-            if name == 'fundus':
-                dataset_dir = '../FUNDUS_Dataset/FairVLMed'
-                subset = 'train'
-                vis_processor = Blip2ImageTrainProcessor(image_size=224, mean=None, std=None, min_scale=0.5, max_scale=1.0)
-                text_processor = BlipCaptionProcessor(prompt='', max_words=datasets_config["fundus"]["max_words"]) # default settings
+            if name == "fundus":
+                dataset_dir = "../FUNDUS_Dataset/FairVLMed"
+                subset = "train"
+                vis_processor = Blip2ImageTrainProcessor(
+                    image_size=224, mean=None, std=None, min_scale=0.5, max_scale=1.0
+                )
+                text_processor = BlipCaptionProcessor(
+                    prompt="", max_words=datasets_config["fundus"]["max_words"]
+                )  # default settings
                 print(text_processor)
-                fundus_dataset = FUNDUS_Dataset(dataset_dir, subset, vis_processor, text_processor, datasets_config["fundus"]["summary_type"])
+                fundus_dataset = FUNDUS_Dataset(
+                    dataset_dir,
+                    subset,
+                    vis_processor,
+                    text_processor,
+                    datasets_config["fundus"]["summary_type"],
+                )
                 datasets[name] = {"train": fundus_dataset}
             else:
                 dataset_config = datasets_config[name]
@@ -75,14 +95,14 @@ class BaseTask:
     def train_step(self, model, samples):
         output = model(samples)
         loss_dict = {}
-        for k,v in output.items():
+        for k, v in output.items():
             if "loss" in k:
                 loss_dict[k] = v
         return output["loss"], loss_dict
 
     def valid_step(self, model, samples):
         raise NotImplementedError
-    
+
     def before_training(self, model, dataset, **kwargs):
         model.before_training(dataset=dataset, task_type=type(self))
 
@@ -231,7 +251,9 @@ class BaseTask:
 
             with torch.cuda.amp.autocast(enabled=use_amp):
                 loss, loss_dict = self.train_step(model=model, samples=samples)
-                loss /= accum_grad_iters #TODO: not affect loss_dict values for logging
+                loss /= (
+                    accum_grad_iters  # TODO: not affect loss_dict values for logging
+                )
 
             # after_train_step()
             if use_amp:
@@ -243,8 +265,8 @@ class BaseTask:
             if (i + 1) % accum_grad_iters == 0:
                 if use_amp:
                     scaler.step(optimizer)
-                    scaler.update()                     
-                else:    
+                    scaler.update()
+                else:
                     optimizer.step()
                 optimizer.zero_grad()
 

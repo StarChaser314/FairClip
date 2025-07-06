@@ -10,7 +10,7 @@ PERF_FILE=${MODEL_ARCH}_${MODALITY_TYPE}.csv
 
 python ./evaluate_CLIP.py \
 		--dataset_dir ${DATASET_DIR} \
-		--result_dir ${RESULT_DIR}/results/glaucoma_CLIP_${MODEL_ARCH} \
+		--result_dir ${RESULT_DIR}/results/evaluation/glaucoma_CLIP_${MODEL_ARCH} \
 		--lr ${LR} \
 		--perf_file ${PERF_FILE} \
 		--model_arch ${MODEL_ARCH} \

@@ -10,6 +10,10 @@ __pycache__/
 # C extensions
 *.so
 
+*.pth
+
+models--axiong--PMC_LLaMA_13B/
+
 # Distribution / packaging
 .Python
 build/
