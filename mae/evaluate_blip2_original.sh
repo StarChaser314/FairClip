@@ -1,14 +1,14 @@
+#!/bin/bash
+
 DATA_DIR=/home/arch/Codes/FairCLIP/FUNDUS_Dataset/FairVLMed
 FEATS_TYPE=multimodal # [image, multimodal]
 
-PRETRAIN_CHKPT=ViT-L/14
-EXP_NAME=evaluate_blip2_gpt-4
-MODEL_TYPE=clip # [clip, blip2]
-VISION_ENCODER_WEIGHTS=clip # [clip, pmc-clip]
+# 使用BLIP2官方预训练权重（ViT-L版本）
+PRETRAIN_CHKPT="https://storage.googleapis.com/sfr-vision-language-research/LAVIS/models/BLIP2/blip2_pretrained_vitL.pth"
+EXP_NAME=evaluate_blip2_original_vitL
+MODEL_TYPE=blip2 # [clip, blip2]
+VISION_ENCODER_WEIGHTS=clip # [clip, pmc-clip] - 使用原始CLIP权重
 
-# OMP_NUM_THREADS=1 python -m torch.distributed.launch \
-#     --master_port=29501 \
-#     --nproc_per_node=1 \
 torchrun \
     --nproc_per_node=1 \
     --master_port=29501 \
@@ -29,4 +29,4 @@ torchrun \
     --data_path ${DATA_DIR} \
     --output_dir $EXP_NAME \
     --log_dir $EXP_NAME \
-    --nb_classes 2 > ${EXP_NAME}.out
+    --nb_classes 2 > ${EXP_NAME}.out 

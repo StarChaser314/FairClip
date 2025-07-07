@@ -1,7 +1,7 @@
 #!/bin/bash
 DATASET_DIR=/home/arch/Codes/FairCLIP/FUNDUS_Dataset/FairVLMed
 RESULT_DIR=.
-MODEL_ARCH=vit-b16  # Options: vit-b16 | vit-l14
+MODEL_ARCH=vit-l14  # Options: vit-b16 | vit-l14
 MODALITY_TYPE='slo_fundus'
 LR=1e-5
 BATCH_SIZE=32
@@ -14,4 +14,4 @@ python ./evaluate_CLIP.py \
 		--lr ${LR} \
 		--perf_file ${PERF_FILE} \
 		--model_arch ${MODEL_ARCH} \
-		--pretrained_weights '/home/arch/Codes/FairCLIP/FairCLIP/results/glaucoma_CLIP_vit-b16_seed9077_auc0.7181/clip_ep009.pth'
+		# --pretrained_weights '/home/arch/Codes/FairCLIP/FairCLIP/results/glaucoma_CLIP_vit-b16_seed9077_auc0.7181/clip_ep009.pth'

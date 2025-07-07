@@ -1,0 +1,798 @@
+| distributed init (rank 0): env://, gpu 0
+[19:36:59.272752] job dir: /home/arch/Codes/FairCLIP/mae
+[19:36:59.272864] Namespace(batch_size=512,
+epochs=1000,
+accum_iter=1,
+model='vit_large_patch16',
+weight_decay=0.0,
+lr=None,
+blr=0.1,
+min_lr=0.0,
+warmup_epochs=10,
+finetune='ViT-L/14',
+global_pool=False,
+data_path='/home/arch/Codes/FairCLIP/FUNDUS_Dataset/FairVLMed',
+nb_classes=2,
+output_dir='evaluate_blip2_gpt-4',
+log_dir='evaluate_blip2_gpt-4',
+device='cuda',
+seed=0,
+resume='',
+start_epoch=0,
+eval=False,
+dist_eval=False,
+num_workers=10,
+pin_mem=True,
+world_size=1,
+local_rank=-1,
+dist_on_itp=False,
+dist_url='env://',
+summary_type='gpt-4',
+model_type='clip',
+cfg_path='../LAVIS/lavis/projects/blip2/train/pretrain_stage1.yaml',
+options=None,
+vision_encoder_weights='clip',
+vl_feats_type='multimodal',
+blip_feats_select='avgpool',
+rank=0,
+gpu=0,
+distributed=True,
+dist_backend='nccl')
+[19:37:00.492205] <fundus_dataloader.FUNDUS_Dataset object at 0x73a11b2af580>
+[19:37:00.492271] <fundus_dataloader.FUNDUS_Dataset object at 0x73a11b2af550>
+[19:37:00.492279] <fundus_dataloader.FUNDUS_Dataset object at 0x73a11b2af160>
+[19:37:00.492316] Sampler_train = <torch.utils.data.distributed.DistributedSampler object at 0x73a11b2af5e0>
+[19:37:07.098452] Model = CLIP(
+  (visual): VisionTransformer(
+    (conv1): Conv2d(3, 1024, kernel_size=(14, 14), stride=(14, 14), bias=False)
+    (ln_pre): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    (transformer): Transformer(
+      (resblocks): Sequential(
+        (0): ResidualAttentionBlock(
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+          )
+          (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+          )
+          (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (1): ResidualAttentionBlock(
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+          )
+          (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+          )
+          (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (2): ResidualAttentionBlock(
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+          )
+          (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+          )
+          (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (3): ResidualAttentionBlock(
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+          )
+          (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+          )
+          (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (4): ResidualAttentionBlock(
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+          )
+          (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+          )
+          (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (5): ResidualAttentionBlock(
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+          )
+          (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+          )
+          (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (6): ResidualAttentionBlock(
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+          )
+          (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+          )
+          (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (7): ResidualAttentionBlock(
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+          )
+          (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+          )
+          (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (8): ResidualAttentionBlock(
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+          )
+          (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+          )
+          (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (9): ResidualAttentionBlock(
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+          )
+          (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+          )
+          (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (10): ResidualAttentionBlock(
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+          )
+          (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+          )
+          (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (11): ResidualAttentionBlock(
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+          )
+          (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+          )
+          (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (12): ResidualAttentionBlock(
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+          )
+          (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+          )
+          (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (13): ResidualAttentionBlock(
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+          )
+          (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+          )
+          (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (14): ResidualAttentionBlock(
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+          )
+          (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+          )
+          (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (15): ResidualAttentionBlock(
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+          )
+          (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+          )
+          (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (16): ResidualAttentionBlock(
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+          )
+          (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+          )
+          (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (17): ResidualAttentionBlock(
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+          )
+          (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+          )
+          (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (18): ResidualAttentionBlock(
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+          )
+          (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+          )
+          (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (19): ResidualAttentionBlock(
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+          )
+          (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+          )
+          (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (20): ResidualAttentionBlock(
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+          )
+          (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+          )
+          (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (21): ResidualAttentionBlock(
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+          )
+          (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+          )
+          (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (22): ResidualAttentionBlock(
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+          )
+          (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+          )
+          (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (23): ResidualAttentionBlock(
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+          )
+          (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+          )
+          (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+    )
+    (ln_post): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+  )
+  (transformer): Transformer(
+    (resblocks): Sequential(
+      (0): ResidualAttentionBlock(
+        (attn): MultiheadAttention(
+          (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+        )
+        (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+        (mlp): Sequential(
+          (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+          (gelu): QuickGELU()
+          (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+        )
+        (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+      )
+      (1): ResidualAttentionBlock(
+        (attn): MultiheadAttention(
+          (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+        )
+        (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+        (mlp): Sequential(
+          (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+          (gelu): QuickGELU()
+          (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+        )
+        (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+      )
+      (2): ResidualAttentionBlock(
+        (attn): MultiheadAttention(
+          (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+        )
+        (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+        (mlp): Sequential(
+          (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+          (gelu): QuickGELU()
+          (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+        )
+        (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+      )
+      (3): ResidualAttentionBlock(
+        (attn): MultiheadAttention(
+          (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+        )
+        (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+        (mlp): Sequential(
+          (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+          (gelu): QuickGELU()
+          (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+        )
+        (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+      )
+      (4): ResidualAttentionBlock(
+        (attn): MultiheadAttention(
+          (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+        )
+        (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+        (mlp): Sequential(
+          (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+          (gelu): QuickGELU()
+          (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+        )
+        (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+      )
+      (5): ResidualAttentionBlock(
+        (attn): MultiheadAttention(
+          (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+        )
+        (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+        (mlp): Sequential(
+          (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+          (gelu): QuickGELU()
+          (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+        )
+        (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+      )
+      (6): ResidualAttentionBlock(
+        (attn): MultiheadAttention(
+          (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+        )
+        (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+        (mlp): Sequential(
+          (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+          (gelu): QuickGELU()
+          (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+        )
+        (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+      )
+      (7): ResidualAttentionBlock(
+        (attn): MultiheadAttention(
+          (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+        )
+        (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+        (mlp): Sequential(
+          (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+          (gelu): QuickGELU()
+          (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+        )
+        (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+      )
+      (8): ResidualAttentionBlock(
+        (attn): MultiheadAttention(
+          (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+        )
+        (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+        (mlp): Sequential(
+          (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+          (gelu): QuickGELU()
+          (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+        )
+        (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+      )
+      (9): ResidualAttentionBlock(
+        (attn): MultiheadAttention(
+          (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+        )
+        (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+        (mlp): Sequential(
+          (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+          (gelu): QuickGELU()
+          (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+        )
+        (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+      )
+      (10): ResidualAttentionBlock(
+        (attn): MultiheadAttention(
+          (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+        )
+        (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+        (mlp): Sequential(
+          (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+          (gelu): QuickGELU()
+          (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+        )
+        (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+      )
+      (11): ResidualAttentionBlock(
+        (attn): MultiheadAttention(
+          (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+        )
+        (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+        (mlp): Sequential(
+          (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+          (gelu): QuickGELU()
+          (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+        )
+        (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+      )
+    )
+  )
+  (token_embedding): Embedding(49408, 768)
+  (ln_final): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+  (head): Sequential(
+    (0): BatchNorm1d(1536, eps=1e-06, momentum=0.1, affine=False, track_running_stats=True)
+    (1): Linear(in_features=1536, out_features=2, bias=True)
+  )
+)
+[19:37:07.098528] number of params (M): 0.00
+[19:37:07.098540] base lr: 1.00e-01
+[19:37:07.098546] actual lr: 2.00e-01
+[19:37:07.098551] accumulate grad iterations: 1
+[19:37:07.098556] effective batch size: 512
+[19:37:07.124687] LARS (
+Parameter Group 0
+    lr: 0.2
+    momentum: 0.9
+    trust_coefficient: 0.001
+    weight_decay: 0.0
+)
+[19:37:07.124785] criterion = None
+[19:37:07.124796] Start training for 1000 epochs
+[19:37:07.125565] log_dir: evaluate_blip2_gpt-4
+[19:37:17.659299] Epoch: [0]  [ 0/13]  eta: 0:02:16  lr: 0.000000  loss: 0.7125 (0.7125)  time: 10.5322  data: 5.4439  max mem: 6049
+[19:37:40.611219] Epoch: [0]  [12/13]  eta: 0:00:02  lr: 0.018462  loss: 0.7179 (0.7165)  time: 2.5757  data: 0.4188  max mem: 6060
+[19:37:40.688764] Epoch: [0] Total time: 0:00:33 (2.5818 s / it)
+[19:37:40.689492] Averaged stats: lr: 0.018462  loss: 0.7179 (0.7165)
+[19:37:40.690461] log_dir: evaluate_blip2_gpt-4
+[19:37:45.929667] Epoch: [1]  [ 0/13]  eta: 0:01:08  lr: 0.020000  loss: 0.7246 (0.7246)  time: 5.2386  data: 3.1832  max mem: 6060
+[19:38:08.829902] Epoch: [1]  [12/13]  eta: 0:00:02  lr: 0.038462  loss: 0.7176 (0.7153)  time: 2.1645  data: 0.2449  max mem: 6060
+[19:38:08.903551] Epoch: [1] Total time: 0:00:28 (2.1702 s / it)
+[19:38:08.904245] Averaged stats: lr: 0.038462  loss: 0.7176 (0.7153)
+[19:38:08.905201] log_dir: evaluate_blip2_gpt-4
+[19:38:14.313457] Epoch: [2]  [ 0/13]  eta: 0:01:10  lr: 0.040000  loss: 0.7226 (0.7226)  time: 5.4073  data: 3.2870  max mem: 6060
+[19:38:37.228477] Epoch: [2]  [12/13]  eta: 0:00:02  lr: 0.058462  loss: 0.7119 (0.7112)  time: 2.1786  data: 0.2529  max mem: 6060
+[19:38:37.302622] Epoch: [2] Total time: 0:00:28 (2.1844 s / it)
+[19:38:37.303306] Averaged stats: lr: 0.058462  loss: 0.7119 (0.7112)
+[19:38:37.304289] log_dir: evaluate_blip2_gpt-4
+[19:38:42.685109] Epoch: [3]  [ 0/13]  eta: 0:01:09  lr: 0.060000  loss: 0.7070 (0.7070)  time: 5.3801  data: 3.2155  max mem: 6060
+[19:39:05.590487] Epoch: [3]  [12/13]  eta: 0:00:02  lr: 0.078462  loss: 0.7032 (0.7039)  time: 2.1757  data: 0.2474  max mem: 6060
+[19:39:05.662553] Epoch: [3] Total time: 0:00:28 (2.1814 s / it)
+[19:39:05.663159] Averaged stats: lr: 0.078462  loss: 0.7032 (0.7039)
+[19:39:05.664071] log_dir: evaluate_blip2_gpt-4
+[19:39:10.896820] Epoch: [4]  [ 0/13]  eta: 0:01:08  lr: 0.080000  loss: 0.7049 (0.7049)  time: 5.2320  data: 3.1713  max mem: 6060
+[19:39:33.824693] Epoch: [4]  [12/13]  eta: 0:00:02  lr: 0.098462  loss: 0.6953 (0.6961)  time: 2.1661  data: 0.2440  max mem: 6060
+[19:39:33.897954] Epoch: [4] Total time: 0:00:28 (2.1718 s / it)
+[19:39:33.898592] Averaged stats: lr: 0.098462  loss: 0.6953 (0.6961)
+[19:39:33.899604] log_dir: evaluate_blip2_gpt-4
+[19:39:39.278079] Epoch: [5]  [ 0/13]  eta: 0:01:09  lr: 0.100000  loss: 0.6750 (0.6750)  time: 5.3775  data: 3.2329  max mem: 6060
+[19:40:02.208285] Epoch: [5]  [12/13]  eta: 0:00:02  lr: 0.118462  loss: 0.6871 (0.6858)  time: 2.1775  data: 0.2487  max mem: 6060
+[19:40:02.279285] Epoch: [5] Total time: 0:00:28 (2.1830 s / it)
+[19:40:02.279947] Averaged stats: lr: 0.118462  loss: 0.6871 (0.6858)
+[19:40:02.280926] log_dir: evaluate_blip2_gpt-4
+[19:40:07.672867] Epoch: [6]  [ 0/13]  eta: 0:01:10  lr: 0.120000  loss: 0.6766 (0.6766)  time: 5.3911  data: 3.2746  max mem: 6060
+[19:40:30.589595] Epoch: [6]  [12/13]  eta: 0:00:02  lr: 0.138462  loss: 0.6747 (0.6767)  time: 2.1775  data: 0.2520  max mem: 6060
+[19:40:30.658465] Epoch: [6] Total time: 0:00:28 (2.1829 s / it)
+[19:40:30.659063] Averaged stats: lr: 0.138462  loss: 0.6747 (0.6767)
+[19:40:30.660042] log_dir: evaluate_blip2_gpt-4
+[19:40:36.069080] Epoch: [7]  [ 0/13]  eta: 0:01:10  lr: 0.140000  loss: 0.6678 (0.6678)  time: 5.4082  data: 3.3265  max mem: 6060
+[19:40:58.991645] Epoch: [7]  [12/13]  eta: 0:00:02  lr: 0.158462  loss: 0.6670 (0.6681)  time: 2.1792  data: 0.2559  max mem: 6060
+[19:40:59.064634] Epoch: [7] Total time: 0:00:28 (2.1850 s / it)
+[19:40:59.065252] Averaged stats: lr: 0.158462  loss: 0.6670 (0.6681)
+[19:40:59.066313] log_dir: evaluate_blip2_gpt-4
+[19:41:04.651728] Epoch: [8]  [ 0/13]  eta: 0:01:12  lr: 0.160000  loss: 0.6525 (0.6525)  time: 5.5848  data: 3.4420  max mem: 6060
+[19:41:27.564629] Epoch: [8]  [12/13]  eta: 0:00:02  lr: 0.178462  loss: 0.6596 (0.6611)  time: 2.1921  data: 0.2648  max mem: 6060
+[19:41:27.639208] Epoch: [8] Total time: 0:00:28 (2.1979 s / it)
+[19:41:27.639845] Averaged stats: lr: 0.178462  loss: 0.6596 (0.6611)
+[19:41:27.640877] log_dir: evaluate_blip2_gpt-4
+[19:41:33.220033] Epoch: [9]  [ 0/13]  eta: 0:01:12  lr: 0.180000  loss: 0.6637 (0.6637)  time: 5.5785  data: 3.4060  max mem: 6060
+[19:41:56.134019] Epoch: [9]  [12/13]  eta: 0:00:02  lr: 0.198462  loss: 0.6472 (0.6522)  time: 2.1917  data: 0.2620  max mem: 6060
+[19:41:56.210174] Epoch: [9] Total time: 0:00:28 (2.1976 s / it)
+[19:41:56.210829] Averaged stats: lr: 0.198462  loss: 0.6472 (0.6522)
+[19:42:01.227452] Test:  [0/2]  eta: 0:00:10    time: 5.0151  data: 2.9189  max mem: 6060
+[19:42:03.072500] Test:  [1/2]  eta: 0:00:03    time: 3.4299  data: 1.4595  max mem: 6060
+[19:42:03.105653] Test: Total time: 0:00:06 (3.4469 s / it)
+[19:42:08.279874] Test:  [0/4]  eta: 0:00:20    time: 5.0197  data: 2.9168  max mem: 6060
+[19:42:13.618869] Test:  [3/4]  eta: 0:00:02    time: 2.5896  data: 0.7293  max mem: 6060
+[19:42:13.656098] Test: Total time: 0:00:10 (2.5991 s / it)
+[19:42:13.817917] AUC of the network on the 940 val images: 0.6568093420450893
+[19:42:13.817978] AUC of the network on the 1883 test images: 0.6522695467677861
+[19:42:14.917329] Max Val AUC: 0.6568093420450893
+[19:42:14.917393] {'overall_acc': 0.6176314391927775, 'eval_es_acc': [0.5927106640978878, 0.6076847926817563, 0.6016282640509452, 0.5731355378670577], 'overall_auc': 0.6522695467677861, 'eval_es_auc': [0.6301326620136217, 0.623744063239948, 0.6226282335991881, 0.5677006572292735], 'eval_aucs_by_attrs': [[0.6643290043290043, 0.668908738699957, 0.6458376815479325], [0.631436329588015, 0.6771690029856048], [0.6538567604535895, 0.6062500000000001], [0.6538360025624601, 0.6022727272727273, 0.5548654244306418]], 'eval_dpds': [0.15014195239135186, 0.0012929080292436446, 0.0462019048728628, 0.1643042339532252], 'eval_eods': [0.16863941427699813, 0.016062668143693615, 0.0732323232323232, 0.17893351530512774], 'between_group_disparity': [[0.01528994835845077, 0.03537043430334793], [0.0350565756321221, 0.0701131512642442], [0.03649316504924758, 0.07298633009849516], [0.061962791613614523, 0.1517326366411718]]}
+[19:42:14.918395] log_dir: evaluate_blip2_gpt-4
+[19:42:21.063582] Epoch: [10]  [ 0/13]  eta: 0:01:19  lr: 0.200000  loss: 0.6332 (0.6332)  time: 6.1443  data: 3.8607  max mem: 6060
+[19:42:43.977157] Epoch: [10]  [12/13]  eta: 0:00:02  lr: 0.200000  loss: 0.6408 (0.6435)  time: 2.2352  data: 0.2970  max mem: 6060
+[19:42:44.050234] Epoch: [10] Total time: 0:00:29 (2.2409 s / it)
+[19:42:44.050936] Averaged stats: lr: 0.200000  loss: 0.6408 (0.6435)
+[19:42:44.051944] log_dir: evaluate_blip2_gpt-4
+[19:42:49.603055] Epoch: [11]  [ 0/13]  eta: 0:01:12  lr: 0.199999  loss: 0.6347 (0.6347)  time: 5.5501  data: 3.3744  max mem: 6060
+[19:43:12.567935] Epoch: [11]  [12/13]  eta: 0:00:02  lr: 0.199998  loss: 0.6347 (0.6371)  time: 2.1934  data: 0.2596  max mem: 6060
+[19:43:12.641348] Epoch: [11] Total time: 0:00:28 (2.1992 s / it)
+[19:43:12.642099] Averaged stats: lr: 0.199998  loss: 0.6347 (0.6371)
+[19:43:12.643162] log_dir: evaluate_blip2_gpt-4
+[19:43:18.049615] Epoch: [12]  [ 0/13]  eta: 0:01:10  lr: 0.199998  loss: 0.6401 (0.6401)  time: 5.4057  data: 3.1951  max mem: 6060
+[19:43:40.981543] Epoch: [12]  [12/13]  eta: 0:00:02  lr: 0.199996  loss: 0.6336 (0.6311)  time: 2.1798  data: 0.2458  max mem: 6060
+[19:43:41.052670] Epoch: [12] Total time: 0:00:28 (2.1853 s / it)
+[19:43:41.053365] Averaged stats: lr: 0.199996  loss: 0.6336 (0.6311)
+[19:43:41.054325] log_dir: evaluate_blip2_gpt-4
+[19:43:46.614542] Epoch: [13]  [ 0/13]  eta: 0:01:12  lr: 0.199995  loss: 0.6407 (0.6407)  time: 5.5593  data: 3.4478  max mem: 6060
+[19:44:09.537657] Epoch: [13]  [12/13]  eta: 0:00:02  lr: 0.199992  loss: 0.6233 (0.6259)  time: 2.1909  data: 0.2653  max mem: 6060
+[19:44:09.608703] Epoch: [13] Total time: 0:00:28 (2.1965 s / it)
+[19:44:09.609690] Averaged stats: lr: 0.199992  loss: 0.6233 (0.6259)
+[19:44:09.610833] log_dir: evaluate_blip2_gpt-4
+[19:44:15.025790] Epoch: [14]  [ 0/13]  eta: 0:01:10  lr: 0.199992  loss: 0.6144 (0.6144)  time: 5.4140  data: 3.2796  max mem: 6060
+[19:44:37.957788] Epoch: [14]  [12/13]  eta: 0:00:02  lr: 0.199988  loss: 0.6178 (0.6202)  time: 2.1804  data: 0.2523  max mem: 6060
+[19:44:38.028060] Epoch: [14] Total time: 0:00:28 (2.1859 s / it)
+[19:44:38.028852] Averaged stats: lr: 0.199988  loss: 0.6178 (0.6202)
+[19:44:38.029941] log_dir: evaluate_blip2_gpt-4
+[19:44:43.176046] Epoch: [15]  [ 0/13]  eta: 0:01:06  lr: 0.199987  loss: 0.6219 (0.6219)  time: 5.1452  data: 2.9909  max mem: 6060
+[19:45:06.110614] Epoch: [15]  [12/13]  eta: 0:00:02  lr: 0.199982  loss: 0.6205 (0.6163)  time: 2.1599  data: 0.2301  max mem: 6060
+[19:45:06.181664] Epoch: [15] Total time: 0:00:28 (2.1655 s / it)
+[19:45:06.182285] Averaged stats: lr: 0.199982  loss: 0.6205 (0.6163)
+[19:45:06.183343] log_dir: evaluate_blip2_gpt-4
+[19:45:11.570517] Epoch: [16]  [ 0/13]  eta: 0:01:10  lr: 0.199982  loss: 0.6143 (0.6143)  time: 5.3863  data: 3.2379  max mem: 6060
+[19:45:34.497735] Epoch: [16]  [12/13]  eta: 0:00:02  lr: 0.199976  loss: 0.6169 (0.6155)  time: 2.1779  data: 0.2492  max mem: 6060
+[19:45:34.572044] Epoch: [16] Total time: 0:00:28 (2.1837 s / it)
+[19:45:34.572755] Averaged stats: lr: 0.199976  loss: 0.6169 (0.6155)
+[19:45:34.573856] log_dir: evaluate_blip2_gpt-4
+[19:45:39.747564] Epoch: [17]  [ 0/13]  eta: 0:01:07  lr: 0.199975  loss: 0.6136 (0.6136)  time: 5.1728  data: 3.0230  max mem: 6060
+[19:46:02.708181] Epoch: [17]  [12/13]  eta: 0:00:02  lr: 0.199968  loss: 0.6074 (0.6081)  time: 2.1641  data: 0.2326  max mem: 6060
+[19:46:02.782713] Epoch: [17] Total time: 0:00:28 (2.1699 s / it)
+[19:46:02.783360] Averaged stats: lr: 0.199968  loss: 0.6074 (0.6081)
+[19:46:02.784355] log_dir: evaluate_blip2_gpt-4
+[19:46:08.152147] Epoch: [18]  [ 0/13]  eta: 0:01:09  lr: 0.199968  loss: 0.6091 (0.6091)  time: 5.3669  data: 3.2392  max mem: 6060
+[19:46:31.080045] Epoch: [18]  [12/13]  eta: 0:00:02  lr: 0.199960  loss: 0.6091 (0.6041)  time: 2.1765  data: 0.2492  max mem: 6060
+[19:46:31.151079] Epoch: [18] Total time: 0:00:28 (2.1820 s / it)
+[19:46:31.151761] Averaged stats: lr: 0.199960  loss: 0.6091 (0.6041)
+[19:46:31.152768] log_dir: evaluate_blip2_gpt-4
+[19:46:36.511799] Epoch: [19]  [ 0/13]  eta: 0:01:09  lr: 0.199959  loss: 0.6136 (0.6136)  time: 5.3582  data: 3.1795  max mem: 6060
+[19:46:59.442391] Epoch: [19]  [12/13]  eta: 0:00:02  lr: 0.199950  loss: 0.6001 (0.6011)  time: 2.1760  data: 0.2446  max mem: 6060
+[19:46:59.511647] Epoch: [19] Total time: 0:00:28 (2.1814 s / it)
+[19:46:59.512266] Averaged stats: lr: 0.199950  loss: 0.6001 (0.6011)
+[19:47:04.097805] Test:  [0/2]  eta: 0:00:09    time: 4.5840  data: 2.4499  max mem: 6060
+[19:47:05.697345] Test:  [1/2]  eta: 0:00:03    time: 3.0916  data: 1.2250  max mem: 6060
+[19:47:05.726295] Test: Total time: 0:00:06 (3.1065 s / it)
+[19:47:10.674389] Test:  [0/4]  eta: 0:00:19    time: 4.8176  data: 2.6418  max mem: 6060
+[19:47:15.787302] Test:  [3/4]  eta: 0:00:02    time: 2.4825  data: 0.6605  max mem: 6060
+[19:47:15.821999] Test: Total time: 0:00:09 (2.4914 s / it)
+[19:47:16.005590] AUC of the network on the 940 val images: 0.7421134611117903
+[19:47:16.005657] AUC of the network on the 1883 test images: 0.7291328096785843
+[19:47:17.310439] Max Val AUC: 0.7421134611117903
+[19:47:17.310499] {'overall_acc': 0.6728624535315985, 'eval_es_acc': [0.6437104588467741, 0.6549645681755607, 0.6537033643074025, 0.5986719063006289], 'overall_auc': 0.7291328096785843, 'eval_es_auc': [0.6989818350090953, 0.6895028692102095, 0.6743582427260321, 0.5964276699290461], 'eval_aucs_by_attrs': [[0.7432034632034632, 0.7065486439948342, 0.7356135530258787], [0.7034063670411985, 0.7608824737233488], [0.7319191755771597, 0.6506944444444445], [0.733964125560538, 0.625, 0.6155969634230504]], 'eval_dpds': [0.07266870495741429, 0.0173386371040683, 0.06969242419829319, 0.11337044787512673], 'eval_eods': [0.12760869565217392, 0.03940425531914893, 0.09271284271284264, 0.18565997270423085], 'between_group_disparity': [[0.02166567806720845, 0.05027180058566718], [0.0394140175282243, 0.0788280350564486], [0.05569954475681916, 0.11139908951363832], [0.07367633297178093, 0.16233964590026634]]}
+[19:47:17.311523] log_dir: evaluate_blip2_gpt-4
+[19:47:22.963628] Epoch: [20]  [ 0/13]  eta: 0:01:13  lr: 0.199950  loss: 0.5960 (0.5960)  time: 5.6513  data: 3.5486  max mem: 6060
+[19:47:45.884982] Epoch: [20]  [12/13]  eta: 0:00:02  lr: 0.199940  loss: 0.5962 (0.5979)  time: 2.1978  data: 0.2730  max mem: 6060
+[19:47:45.956303] Epoch: [20] Total time: 0:00:28 (2.2034 s / it)
+[19:47:45.956925] Averaged stats: lr: 0.199940  loss: 0.5962 (0.5979)
+[19:47:45.958015] log_dir: evaluate_blip2_gpt-4
+[19:47:51.491941] Epoch: [21]  [ 0/13]  eta: 0:01:11  lr: 0.199939  loss: 0.5775 (0.5775)  time: 5.5332  data: 3.3615  max mem: 6060
+[19:48:14.407013] Epoch: [21]  [12/13]  eta: 0:00:02  lr: 0.199928  loss: 0.5907 (0.5940)  time: 2.1883  data: 0.2586  max mem: 6060
+[19:48:14.476644] Epoch: [21] Total time: 0:00:28 (2.1937 s / it)
+[19:48:14.477294] Averaged stats: lr: 0.199928  loss: 0.5907 (0.5940)
+[19:48:14.478302] log_dir: evaluate_blip2_gpt-4
+[19:48:19.707700] Epoch: [22]  [ 0/13]  eta: 0:01:07  lr: 0.199928  loss: 0.5759 (0.5759)  time: 5.2286  data: 3.0941  max mem: 6060
+[19:48:42.629767] Epoch: [22]  [12/13]  eta: 0:00:02  lr: 0.199916  loss: 0.5918 (0.5910)  time: 2.1654  data: 0.2381  max mem: 6060
+[19:48:42.700961] Epoch: [22] Total time: 0:00:28 (2.1710 s / it)
+[19:48:42.701583] Averaged stats: lr: 0.199916  loss: 0.5918 (0.5910)
+[19:48:42.702678] log_dir: evaluate_blip2_gpt-4
+[19:48:48.314318] Epoch: [23]  [ 0/13]  eta: 0:01:12  lr: 0.199915  loss: 0.5909 (0.5909)  time: 5.6109  data: 3.5117  max mem: 6060
+[19:49:11.235204] Epoch: [23]  [12/13]  eta: 0:00:02  lr: 0.199902  loss: 0.5894 (0.5891)  time: 2.1947  data: 0.2702  max mem: 6060
+[19:49:11.304797] Epoch: [23] Total time: 0:00:28 (2.2002 s / it)
+[19:49:11.305402] Averaged stats: lr: 0.199902  loss: 0.5894 (0.5891)
+[19:49:11.306526] log_dir: evaluate_blip2_gpt-4
+[19:49:16.717911] Epoch: [24]  [ 0/13]  eta: 0:01:10  lr: 0.199901  loss: 0.6003 (0.6003)  time: 5.4106  data: 3.1421  max mem: 6060
+[19:49:39.654341] Epoch: [24]  [12/13]  eta: 0:00:02  lr: 0.199888  loss: 0.5907 (0.5888)  time: 2.1805  data: 0.2418  max mem: 6060
+[19:49:39.726418] Epoch: [24] Total time: 0:00:28 (2.1861 s / it)
+[19:49:39.727069] Averaged stats: lr: 0.199888  loss: 0.5907 (0.5888)
+[19:49:39.728063] log_dir: evaluate_blip2_gpt-4
+[19:49:45.452070] Epoch: [25]  [ 0/13]  eta: 0:01:14  lr: 0.199887  loss: 0.5976 (0.5976)  time: 5.7233  data: 3.5045  max mem: 6060
+[19:50:08.385353] Epoch: [25]  [12/13]  eta: 0:00:02  lr: 0.199872  loss: 0.5807 (0.5826)  time: 2.2043  data: 0.2696  max mem: 6060
+[19:50:08.455865] Epoch: [25] Total time: 0:00:28 (2.2098 s / it)
+[19:50:08.456498] Averaged stats: lr: 0.199872  loss: 0.5807 (0.5826)
+[19:50:08.457509] log_dir: evaluate_blip2_gpt-4
+[19:50:13.675915] Epoch: [26]  [ 0/13]  eta: 0:01:07  lr: 0.199871  loss: 0.5876 (0.5876)  time: 5.2176  data: 3.1395  max mem: 6060
+[19:50:36.598740] Epoch: [26]  [12/13]  eta: 0:00:02  lr: 0.199856  loss: 0.5799 (0.5809)  time: 2.1646  data: 0.2416  max mem: 6060
+[19:50:36.669671] Epoch: [26] Total time: 0:00:28 (2.1702 s / it)
+[19:50:36.670310] Averaged stats: lr: 0.199856  loss: 0.5799 (0.5809)
+[19:50:36.671336] log_dir: evaluate_blip2_gpt-4
+[19:50:42.266442] Epoch: [27]  [ 0/13]  eta: 0:01:12  lr: 0.199855  loss: 0.5751 (0.5751)  time: 5.5943  data: 3.4857  max mem: 6060
+[19:51:05.206386] Epoch: [27]  [12/13]  eta: 0:00:02  lr: 0.199838  loss: 0.5799 (0.5809)  time: 2.1949  data: 0.2682  max mem: 6060
+[19:51:05.277551] Epoch: [27] Total time: 0:00:28 (2.2005 s / it)
+[19:51:05.278416] Averaged stats: lr: 0.199838  loss: 0.5799 (0.5809)
+[19:51:05.279372] log_dir: evaluate_blip2_gpt-4
+[19:51:10.489194] Epoch: [28]  [ 0/13]  eta: 0:01:07  lr: 0.199837  loss: 0.5834 (0.5834)  time: 5.2090  data: 3.1005  max mem: 6060
+[19:51:33.427907] Epoch: [28]  [12/13]  eta: 0:00:02  lr: 0.199820  loss: 0.5769 (0.5810)  time: 2.1652  data: 0.2386  max mem: 6060
+[19:51:33.497099] Epoch: [28] Total time: 0:00:28 (2.1706 s / it)
+[19:51:33.497756] Averaged stats: lr: 0.199820  loss: 0.5769 (0.5810)
+[19:51:33.498750] log_dir: evaluate_blip2_gpt-4
+[19:51:38.670610] Epoch: [29]  [ 0/13]  eta: 0:01:07  lr: 0.199818  loss: 0.5579 (0.5579)  time: 5.1711  data: 3.0046  max mem: 6060
+[19:52:01.616147] Epoch: [29]  [12/13]  eta: 0:00:02  lr: 0.199800  loss: 0.5800 (0.5764)  time: 2.1628  data: 0.2312  max mem: 6060
+[19:52:01.688423] Epoch: [29] Total time: 0:00:28 (2.1684 s / it)
+[19:52:01.689067] Averaged stats: lr: 0.199800  loss: 0.5800 (0.5764)
+[19:52:06.273972] Test:  [0/2]  eta: 0:00:09    time: 4.5834  data: 2.4701  max mem: 6060
+[19:52:07.872210] Test:  [1/2]  eta: 0:00:03    time: 3.0907  data: 1.2351  max mem: 6060
+[19:52:07.900430] Test: Total time: 0:00:06 (3.1052 s / it)
+[19:52:12.620128] Test:  [0/4]  eta: 0:00:18    time: 4.5891  data: 2.5412  max mem: 6060
+[19:52:17.740104] Test:  [3/4]  eta: 0:00:02    time: 2.4272  data: 0.6354  max mem: 6060
+[19:52:17.773723] Test: Total time: 0:00:09 (2.4358 s / it)
+[19:52:17.936816] AUC of the network on the 940 val images: 0.7653870709211189
+[19:52:17.936883] AUC of the network on the 1883 test images: 0.7521702329360782
+[19:52:19.184996] Max Val AUC: 0.7653870709211189
+[19:52:19.185061] {'overall_acc': 0.6887944768985661, 'eval_es_acc': [0.6411158990946125, 0.6698103148025267, 0.6500379542429485, 0.6017557262963523], 'overall_auc': 0.7521702329360782, 'eval_es_auc': [0.720764221850874, 0.7124825440878475, 0.6877275784480079, 0.587207309512634], 'eval_aucs_by_attrs': [[0.7574025974025973, 0.7235525182953078, 0.7618933642256029], [0.726885767790262, 0.7825891519328738], [0.7555093076044378, 0.6618055555555556], [0.7578302370275465, 0.6079545454545454, 0.6211180124223602]], 'eval_dpds': [0.05466986969498433, 0.016917160477795012, 0.08561733609064165, 0.14768823784893592], 'eval_eods': [0.10621062106210621, 0.039588652482269504, 0.13997113997113997, 0.24483330083837002], 'between_group_disparity': [[0.022752889993469954, 0.05097362837749193], [0.037028442301668185, 0.07405688460333637], [0.062288926060734835, 0.12457785212146967], [0.0900897762910544, 0.1992576746728795]]}
+[19:52:19.186089] log_dir: evaluate_blip2_gpt-4
+[19:52:24.437718] Epoch: [30]  [ 0/13]  eta: 0:01:08  lr: 0.199799  loss: 0.5711 (0.5711)  time: 5.2508  data: 3.1773  max mem: 6060
+[19:52:47.399182] Epoch: [30]  [12/13]  eta: 0:00:02  lr: 0.199780  loss: 0.5745 (0.5762)  time: 2.1701  data: 0.2445  max mem: 6060
+[19:52:47.471629] Epoch: [30] Total time: 0:00:28 (2.1758 s / it)
+[19:52:47.472251] Averaged stats: lr: 0.199780  loss: 0.5745 (0.5762)
+[19:52:47.473262] log_dir: evaluate_blip2_gpt-4
+[19:52:52.821028] Epoch: [31]  [ 0/13]  eta: 0:01:09  lr: 0.199778  loss: 0.5810 (0.5810)  time: 5.3471  data: 3.2707  max mem: 6060
+[19:53:15.764664] Epoch: [31]  [12/13]  eta: 0:00:02  lr: 0.199758  loss: 0.5745 (0.5751)  time: 2.1762  data: 0.2517  max mem: 6060
+[19:53:15.835974] Epoch: [31] Total time: 0:00:28 (2.1817 s / it)
+[19:53:15.836835] Averaged stats: lr: 0.199758  loss: 0.5745 (0.5751)
+[19:53:15.838789] log_dir: evaluate_blip2_gpt-4
+[19:53:21.003778] Epoch: [32]  [ 0/13]  eta: 0:01:07  lr: 0.199756  loss: 0.5597 (0.5597)  time: 5.1641  data: 3.0355  max mem: 6060
+[19:53:43.928437] Epoch: [32]  [12/13]  eta: 0:00:02  lr: 0.199736  loss: 0.5741 (0.5734)  time: 2.1606  data: 0.2336  max mem: 6060
+[19:53:43.997350] Epoch: [32] Total time: 0:00:28 (2.1660 s / it)
+[19:53:43.998001] Averaged stats: lr: 0.199736  loss: 0.5741 (0.5734)
+[19:53:43.999009] log_dir: evaluate_blip2_gpt-4
+[19:53:49.354151] Epoch: [33]  [ 0/13]  eta: 0:01:09  lr: 0.199734  loss: 0.5775 (0.5775)  time: 5.3542  data: 3.1504  max mem: 6060
+[19:54:12.275859] Epoch: [33]  [12/13]  eta: 0:00:02  lr: 0.199712  loss: 0.5656 (0.5685)  time: 2.1750  data: 0.2424  max mem: 6060
+[19:54:12.347014] Epoch: [33] Total time: 0:00:28 (2.1806 s / it)
+[19:54:12.347650] Averaged stats: lr: 0.199712  loss: 0.5656 (0.5685)
+[19:54:12.348692] log_dir: evaluate_blip2_gpt-4
+[19:54:17.391477] Epoch: [34]  [ 0/13]  eta: 0:01:05  lr: 0.199710  loss: 0.5646 (0.5646)  time: 5.0420  data: 2.9504  max mem: 6060
+[19:54:40.324274] Epoch: [34]  [12/13]  eta: 0:00:02  lr: 0.199687  loss: 0.5672 (0.5686)  time: 2.1519  data: 0.2270  max mem: 6060
+[19:54:40.394196] Epoch: [34] Total time: 0:00:28 (2.1573 s / it)
+[19:54:40.394811] Averaged stats: lr: 0.199687  loss: 0.5672 (0.5686)
+[19:54:40.395817] log_dir: evaluate_blip2_gpt-4
+[19:54:45.578330] Epoch: [35]  [ 0/13]  eta: 0:01:07  lr: 0.199685  loss: 0.5521 (0.5521)  time: 5.1817  data: 3.0826  max mem: 6060
+[19:55:08.507616] Epoch: [35]  [12/13]  eta: 0:00:02  lr: 0.199662  loss: 0.5708 (0.5686)  time: 2.1623  data: 0.2372  max mem: 6060
+[19:55:08.576356] Epoch: [35] Total time: 0:00:28 (2.1677 s / it)
+[19:55:08.576969] Averaged stats: lr: 0.199662  loss: 0.5708 (0.5686)
+[19:55:08.578085] log_dir: evaluate_blip2_gpt-4
+[19:55:13.774359] Epoch: [36]  [ 0/13]  eta: 0:01:07  lr: 0.199660  loss: 0.5580 (0.5580)  time: 5.1955  data: 3.1309  max mem: 6060
+[19:55:36.712522] Epoch: [36]  [12/13]  eta: 0:00:02  lr: 0.199635  loss: 0.5624 (0.5626)  time: 2.1641  data: 0.2409  max mem: 6060
+[19:55:36.782501] Epoch: [36] Total time: 0:00:28 (2.1696 s / it)
+[19:55:36.783282] Averaged stats: lr: 0.199635  loss: 0.5624 (0.5626)
+[19:55:36.784277] log_dir: evaluate_blip2_gpt-4
+[19:55:42.166740] Epoch: [37]  [ 0/13]  eta: 0:01:09  lr: 0.199633  loss: 0.5598 (0.5598)  time: 5.3817  data: 3.3094  max mem: 6060
+[19:56:05.094753] Epoch: [37]  [12/13]  eta: 0:00:02  lr: 0.199608  loss: 0.5601 (0.5634)  time: 2.1776  data: 0.2546  max mem: 6060
+[19:56:05.170134] Epoch: [37] Total time: 0:00:28 (2.1835 s / it)
+[19:56:05.170771] Averaged stats: lr: 0.199608  loss: 0.5601 (0.5634)
+[19:56:05.171692] log_dir: evaluate_blip2_gpt-4
+[19:56:10.737537] Epoch: [38]  [ 0/13]  eta: 0:01:12  lr: 0.199606  loss: 0.5491 (0.5491)  time: 5.5649  data: 3.3979  max mem: 6060
+[19:56:33.666096] Epoch: [38]  [12/13]  eta: 0:00:02  lr: 0.199579  loss: 0.5647 (0.5645)  time: 2.1918  data: 0.2614  max mem: 6060
+[19:56:33.737391] Epoch: [38] Total time: 0:00:28 (2.1974 s / it)
+[19:56:33.738121] Averaged stats: lr: 0.199579  loss: 0.5647 (0.5645)
+[19:56:33.739027] log_dir: evaluate_blip2_gpt-4
+[19:56:39.297212] Epoch: [39]  [ 0/13]  eta: 0:01:12  lr: 0.199577  loss: 0.5849 (0.5849)  time: 5.5573  data: 3.3473  max mem: 6060
+[19:57:02.223282] Epoch: [39]  [12/13]  eta: 0:00:02  lr: 0.199550  loss: 0.5625 (0.5628)  time: 2.1910  data: 0.2575  max mem: 6060
+[19:57:02.292938] Epoch: [39] Total time: 0:00:28 (2.1964 s / it)
+[19:57:02.294044] Averaged stats: lr: 0.199550  loss: 0.5625 (0.5628)
+[19:57:06.904493] Test:  [0/2]  eta: 0:00:09    time: 4.6090  data: 2.4955  max mem: 6060
+[19:57:08.506655] Test:  [1/2]  eta: 0:00:03    time: 3.1054  data: 1.2478  max mem: 6060
+[19:57:08.534267] Test: Total time: 0:00:06 (3.1196 s / it)
+[19:57:13.311918] Test:  [0/4]  eta: 0:00:18    time: 4.6470  data: 2.5466  max mem: 6060
+[19:57:18.429511] Test:  [3/4]  eta: 0:00:02    time: 2.4411  data: 0.6367  max mem: 6060
+[19:57:18.463320] Test: Total time: 0:00:09 (2.4497 s / it)
+[19:57:18.623362] AUC of the network on the 940 val images: 0.7777053307433519
+[19:57:18.623423] AUC of the network on the 1883 test images: 0.7650832881906826
+[19:57:19.849922] Max Val AUC: 0.7777053307433519
+[19:57:19.849982] {'overall_acc': 0.7031332979288369, 'eval_es_acc': [0.652077525761797, 0.6769391564478182, 0.6543429788250009, 0.6195025987022433], 'overall_auc': 0.7650832881906826, 'eval_es_auc': [0.7313602254829245, 0.7256243581040795, 0.697360408435457, 0.5886862984172152], 'eval_aucs_by_attrs': [[0.7622510822510823, 0.7328885062419286, 0.7761663587013757], [0.7402771535580523, 0.7946564334787289], [0.7686409475763949, 0.6715277777777778], [0.7714670083279949, 0.6164772727272727, 0.6204278812974465]], 'eval_dpds': [0.06228070175438599, 0.012788967792351003, 0.10166603559257859, 0.17948566088890638], 'eval_eods': [0.13550724637681155, 0.04595271867612294, 0.17027417027417024, 0.19911288750243716], 'between_group_disparity': [[0.023578302614928378, 0.05656619759894816], [0.03553814385965491, 0.07107628771930982], [0.06346575026378921, 0.12693150052757843], [0.09430309688184246, 0.20257890610478724]]}
+[19:57:19.850945] log_dir: evaluate_blip2_gpt-4
+[19:57:25.168380] Epoch: [40]  [ 0/13]  eta: 0:01:09  lr: 0.199547  loss: 0.5678 (0.5678)  time: 5.3168  data: 3.1864  max mem: 6060
+[19:57:48.091084] Epoch: [40]  [12/13]  eta: 0:00:02  lr: 0.199519  loss: 0.5622 (0.5599)  time: 2.1722  data: 0.2452  max mem: 6060
+[19:57:48.160353] Epoch: [40] Total time: 0:00:28 (2.1776 s / it)
+[19:57:48.160968] Averaged stats: lr: 0.199519  loss: 0.5622 (0.5599)
+[19:57:48.161914] log_dir: evaluate_blip2_gpt-4
+[19:57:53.108985] Epoch: [41]  [ 0/13]  eta: 0:01:04  lr: 0.199517  loss: 0.5536 (0.5536)  time: 4.9463  data: 2.8162  max mem: 6060
+[19:58:16.034898] Epoch: [41]  [12/13]  eta: 0:00:02  lr: 0.199487  loss: 0.5536 (0.5587)  time: 2.1440  data: 0.2167  max mem: 6060
+[19:58:16.107028] Epoch: [41] Total time: 0:00:27 (2.1496 s / it)
+[19:58:16.107793] Averaged stats: lr: 0.199487  loss: 0.5536 (0.5587)
+[19:58:16.108791] log_dir: evaluate_blip2_gpt-4
+[19:58:21.479046] Epoch: [42]  [ 0/13]  eta: 0:01:09  lr: 0.199485  loss: 0.5646 (0.5646)  time: 5.3694  data: 3.1979  max mem: 6060
+[19:58:44.398482] Epoch: [42]  [12/13]  eta: 0:00:02  lr: 0.199455  loss: 0.5587 (0.5581)  time: 2.1760  data: 0.2460  max mem: 6060
+[19:58:44.467771] Epoch: [42] Total time: 0:00:28 (2.1815 s / it)
+[19:58:44.468423] Averaged stats: lr: 0.199455  loss: 0.5587 (0.5581)
+[19:58:44.469355] log_dir: evaluate_blip2_gpt-4
+[19:58:49.498826] Epoch: [43]  [ 0/13]  eta: 0:01:05  lr: 0.199452  loss: 0.5645 (0.5645)  time: 5.0286  data: 2.9328  max mem: 6060
+[19:59:12.450297] Epoch: [43]  [12/13]  eta: 0:00:02  lr: 0.199421  loss: 0.5570 (0.5545)  time: 2.1523  data: 0.2257  max mem: 6060
+[19:59:12.521263] Epoch: [43] Total time: 0:00:28 (2.1578 s / it)
+[19:59:12.521954] Averaged stats: lr: 0.199421  loss: 0.5570 (0.5545)
+[19:59:12.522895] log_dir: evaluate_blip2_gpt-4
+[19:59:17.693093] Epoch: [44]  [ 0/13]  eta: 0:01:07  lr: 0.199419  loss: 0.5406 (0.5406)  time: 5.1694  data: 3.0779  max mem: 6060
+[19:59:40.621700] Epoch: [44]  [12/13]  eta: 0:00:02  lr: 0.199387  loss: 0.5578 (0.5557)  time: 2.1613  data: 0.2368  max mem: 6060
+[19:59:40.693371] Epoch: [44] Total time: 0:00:28 (2.1670 s / it)
+[19:59:40.694077] Averaged stats: lr: 0.199387  loss: 0.5578 (0.5557)
+[19:59:40.695018] log_dir: evaluate_blip2_gpt-4
+[19:59:45.662984] Epoch: [45]  [ 0/13]  eta: 0:01:04  lr: 0.199384  loss: 0.5899 (0.5899)  time: 4.9673  data: 2.7989  max mem: 6060
+[20:00:08.607821] Epoch: [45]  [12/13]  eta: 0:00:02  lr: 0.199351  loss: 0.5532 (0.5537)  time: 2.1470  data: 0.2154  max mem: 6060
+[20:00:08.678208] Epoch: [45] Total time: 0:00:27 (2.1525 s / it)
+[20:00:08.678868] Averaged stats: lr: 0.199351  loss: 0.5532 (0.5537)
+[20:00:08.679822] log_dir: evaluate_blip2_gpt-4
+[20:00:13.671884] Epoch: [46]  [ 0/13]  eta: 0:01:04  lr: 0.199348  loss: 0.5236 (0.5236)  time: 4.9913  data: 2.9291  max mem: 6060
+[20:00:36.601511] Epoch: [46]  [12/13]  eta: 0:00:02  lr: 0.199314  loss: 0.5574 (0.5515)  time: 2.1477  data: 0.2254  max mem: 6060
+[20:00:36.670528] Epoch: [46] Total time: 0:00:27 (2.1531 s / it)
+[20:00:36.671244] Averaged stats: lr: 0.199314  loss: 0.5574 (0.5515)
+[20:00:36.672209] log_dir: evaluate_blip2_gpt-4
+[20:00:41.861947] Epoch: [47]  [ 0/13]  eta: 0:01:07  lr: 0.199312  loss: 0.5553 (0.5553)  time: 5.1889  data: 3.1138  max mem: 6060
+[20:01:04.798358] Epoch: [47]  [12/13]  eta: 0:00:02  lr: 0.199277  loss: 0.5553 (0.5539)  time: 2.1634  data: 0.2396  max mem: 6060
+[20:01:04.870442] Epoch: [47] Total time: 0:00:28 (2.1691 s / it)
+[20:01:04.871192] Averaged stats: lr: 0.199277  loss: 0.5553 (0.5539)
+[20:01:04.872121] log_dir: evaluate_blip2_gpt-4
+[20:01:10.053932] Epoch: [48]  [ 0/13]  eta: 0:01:07  lr: 0.199274  loss: 0.5496 (0.5496)  time: 5.1810  data: 3.1085  max mem: 6060
+[20:01:32.990922] Epoch: [48]  [12/13]  eta: 0:00:02  lr: 0.199238  loss: 0.5550 (0.5507)  time: 2.1629  data: 0.2392  max mem: 6060
+[20:01:33.060456] Epoch: [48] Total time: 0:00:28 (2.1683 s / it)
+[20:01:33.061134] Averaged stats: lr: 0.199238  loss: 0.5550 (0.5507)
+[20:01:33.062145] log_dir: evaluate_blip2_gpt-4
+[20:01:38.210280] Epoch: [49]  [ 0/13]  eta: 0:01:06  lr: 0.199235  loss: 0.5566 (0.5566)  time: 5.1473  data: 2.9805  max mem: 6060

@@ -86,8 +86,14 @@ if __name__ == "__main__":
         json.dump(args.__dict__, f, indent=2)
 
     # the number of groups in each attribute
-    groups_in_attrs = [3, 2, 2, 3]
-    attr_to_idx = {"race": 0, "gender": 1, "ethnicity": 2, "language": 3}
+    groups_in_attrs = [3, 2, 2, 3, 5]  # race, gender, ethnicity, language, marital
+    attr_to_idx = {
+        "race": 0,
+        "gender": 1,
+        "ethnicity": 2,
+        "language": 3,
+        "maritalstatus": 4,
+    }
 
     model_arch_mapping = {"vit-b16": "ViT-B/16", "vit-l14": "ViT-L/14"}
 
@@ -210,18 +216,30 @@ if __name__ == "__main__":
         )
         group_dataloaders.append(endless_loader(tmp_dataloader))
 
-    group_size_on_race, group_size_on_gender, group_size_on_ethnicity = (
-        count_number_of_groups(train_dataset)
-    )
+    (
+        group_size_on_race,
+        group_size_on_gender,
+        group_size_on_ethnicity,
+        group_size_on_language,
+        group_size_on_marital,
+    ) = count_number_of_groups(train_dataset)
     logger.log(f"group size on race in training set: {group_size_on_race}")
     logger.log(f"group size on gender in training set: {group_size_on_gender}")
     logger.log(f"group size on ethnicity in training set: {group_size_on_ethnicity}")
-    group_size_on_race, group_size_on_gender, group_size_on_ethnicity = (
-        count_number_of_groups(test_dataset)
-    )
+    logger.log(f"group size on language in training set: {group_size_on_language}")
+    logger.log(f"group size on marital status in training set: {group_size_on_marital}")
+    (
+        group_size_on_race,
+        group_size_on_gender,
+        group_size_on_ethnicity,
+        group_size_on_language,
+        group_size_on_marital,
+    ) = count_number_of_groups(test_dataset)
     logger.log(f"group size on race in test set: {group_size_on_race}")
     logger.log(f"group size on gender in test set: {group_size_on_gender}")
     logger.log(f"group size on ethnicity in test set: {group_size_on_ethnicity}")
+    logger.log(f"group size on language in test set: {group_size_on_language}")
+    logger.log(f"group size on marital status in test set: {group_size_on_marital}")
 
     def convert_models_to_fp32(model):
         for p in model.parameters():
