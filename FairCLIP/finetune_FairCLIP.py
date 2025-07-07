@@ -311,6 +311,11 @@ if __name__ == "__main__":
 
             similarity = logits_per_image @ logits_per_text.T
             correlations_with_batch = similarity.diag().float()
+            batch_sum = correlations_with_batch.sum()
+            if batch_sum > 1e-8:  # Avoid division by zero
+                correlations_with_batch /= batch_sum
+            else:
+                correlations_with_batch = torch.ones_like(correlations_with_batch) / len(correlations_with_batch)
             correlations_groups = []
 
             for x in group_dataloaders:
@@ -322,7 +327,11 @@ if __name__ == "__main__":
 
                 similarity = img_feats @ txt_feats.T
                 correlations_with_group = similarity.diag().float()
-                correlations_with_group /= correlations_with_group.sum()
+                group_sum = correlations_with_group.sum()
+                if group_sum > 1e-8:  # Avoid division by zero
+                    correlations_with_group /= group_sum
+                else:
+                    correlations_with_group = torch.ones_like(correlations_with_group) / len(correlations_with_group)
 
                 total_loss = total_loss + args.lambda_fairloss * loss_for_FairCLIP(
                     correlations_with_batch[:, None], correlations_with_group[:, None]

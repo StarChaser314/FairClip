@@ -8,22 +8,15 @@ ATTRIBUTE_TYPE=maritalstatus # Options: race | gender | ethnicity | language | m
 SUMMARIZED_NOTE_FILE=gpt-4_summarized_notes.csv
 LR=1e-5
 BATCH_SIZE=32
-LAMBDA=1e-5
-BATCH_SIZE_FAIR=32
-SK_BLUR=5e-2
 
-PERF_FILE=${MODEL_ARCH}_${MODALITY_TYPE}_${ATTRIBUTE_TYPE}_FairCLIP.csv
+PERF_FILE=${MODEL_ARCH}_${MODALITY_TYPE}_${ATTRIBUTE_TYPE}_CLIP.csv
 
-python ./finetune_FairCLIP.py \
+python ./finetune_CLIP.py \
 		--dataset_dir ${DATASET_DIR} \
-		--result_dir ${RESULT_DIR}/results/glaucoma_FairCLIP_${MODEL_ARCH}_${ATTRIBUTE_TYPE} \
+		--result_dir ${RESULT_DIR}/results/glaucoma_CLIP_${MODEL_ARCH}_${ATTRIBUTE_TYPE} \
 		--lr ${LR} \
 		--batch_size ${BATCH_SIZE} \
 		--perf_file ${PERF_FILE} \
 		--model_arch ${MODEL_ARCH} \
-		--attribute ${ATTRIBUTE_TYPE} \
-		--batchsize_fairloss ${BATCH_SIZE_FAIR} \
-		--lambda_fairloss ${LAMBDA} \
-		--sinkhorn_blur ${SK_BLUR} \
 		--seed 5681 \
 		--summarized_note_file ${SUMMARIZED_NOTE_FILE} 
