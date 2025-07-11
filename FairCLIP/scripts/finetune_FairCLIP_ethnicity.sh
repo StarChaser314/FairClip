@@ -18,6 +18,7 @@ python ./finetune_FairCLIP.py \
 		--dataset_dir ${DATASET_DIR} \
 		--result_dir ${RESULT_DIR}/results/glaucoma_FairCLIP_${MODEL_ARCH}_${ATTRIBUTE_TYPE} \
 		--lr ${LR} \
+		--num_epochs ${NUM_EPOCH} \
 		--batch_size ${BATCH_SIZE} \
 		--perf_file ${PERF_FILE} \
 		--model_arch ${MODEL_ARCH} \

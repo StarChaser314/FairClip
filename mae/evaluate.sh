@@ -21,6 +21,9 @@ torchrun \
     --summary_type gpt-4 \
     --batch_size 512 \
     --model vit_large_patch16 \
+    --early_stopping \
+    --patience 10 \
+    --min_delta 0.0001 \
     --cls_token \
     --finetune ${PRETRAIN_CHKPT} \
     --epochs 1000 \

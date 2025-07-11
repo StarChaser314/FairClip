@@ -197,6 +197,14 @@ def get_args_parser():
         choices=["vit", "mae", "blip2", "clip"],
     )
 
+    parser.add_argument(
+        "--clip_backbone",
+        type=str,
+        default="ViT-L/14",
+        choices=["ViT-L/14", "ViT-B/16"],
+        help="CLIP backbone architecture to use",
+    )
+
     parser.add_argument("--cfg-path", required=True, help="path to configuration file.")
     parser.add_argument(
         "--options",
@@ -219,6 +227,25 @@ def get_args_parser():
         type=str,
         required=True,
         choices=["first", "avgpool", "maxpool", "flatten"],
+    )
+
+    # Early stopping parameters
+    parser.add_argument(
+        "--early_stopping",
+        action="store_true",
+        help="Enable early stopping based on validation performance",
+    )
+    parser.add_argument(
+        "--patience",
+        type=int,
+        default=20,
+        help="Number of epochs to wait for improvement before early stopping",
+    )
+    parser.add_argument(
+        "--min_delta",
+        type=float,
+        default=0.0001,
+        help="Minimum change in validation metric to qualify as an improvement",
     )
 
     return parser
@@ -391,15 +418,22 @@ def main(args):
         )
 
     elif args.model_type == "clip":
-        model, _ = clip.load("ViT-L/14", device="cpu")
-        if args.finetune != "ViT-L/14":
+        model, _ = clip.load(args.clip_backbone, device="cpu")
+        if args.finetune != args.clip_backbone:
             model.load_state_dict(
                 torch.load(args.finetune, map_location="cpu")["model_state_dict"]
             )
+
+        # Set output dimension based on backbone
+        if args.clip_backbone == "ViT-L/14":
+            feat_dim = 768
+        elif args.clip_backbone == "ViT-B/16":
+            feat_dim = 512
+
         if args.vl_feats_type == "image":
-            model.head = torch.nn.Linear(768, args.nb_classes)
+            model.head = torch.nn.Linear(feat_dim, args.nb_classes)
         elif args.vl_feats_type == "multimodal":
-            model.head = torch.nn.Linear(2 * 768, args.nb_classes)
+            model.head = torch.nn.Linear(2 * feat_dim, args.nb_classes)
         trunc_normal_(model.head.weight, std=0.01)
         model.head = torch.nn.Sequential(
             torch.nn.BatchNorm1d(model.head.in_features, affine=False, eps=1e-6),
@@ -463,6 +497,15 @@ def main(args):
     start_time = time.time()
     max_val_auc = -1
     best_epoch_test_stats = None
+
+    # Early stopping variables
+    if args.early_stopping:
+        patience_counter = 0
+        best_val_auc = -1
+        print(
+            f"Early stopping enabled with patience={args.patience}, min_delta={args.min_delta}"
+        )
+
     for epoch in range(args.start_epoch, args.epochs):
         if args.distributed:
             data_loader_train.sampler.set_epoch(epoch)
@@ -488,8 +531,11 @@ def main(args):
             print(
                 f"AUC of the network on the {len(dataset_test)} test images: {test_stats['overall_auc']}"
             )
-            if val_stats["overall_auc"] > max_val_auc:
-                max_val_auc = val_stats["overall_auc"]
+
+            current_val_auc = val_stats["overall_auc"]
+
+            if current_val_auc > max_val_auc:
+                max_val_auc = current_val_auc
                 best_epoch_test_stats = test_stats
                 if args.output_dir:
                     misc.save_model_best(
@@ -503,6 +549,25 @@ def main(args):
 
             print(f"Max Val AUC: {max_val_auc}")
             print(best_epoch_test_stats)
+
+            # Early stopping logic
+            if args.early_stopping:
+                if current_val_auc > best_val_auc + args.min_delta:
+                    best_val_auc = current_val_auc
+                    patience_counter = 0
+                    print(
+                        f"Validation AUC improved to {best_val_auc:.4f}, resetting patience counter"
+                    )
+                else:
+                    patience_counter += 1
+                    print(
+                        f"No improvement in validation AUC. Patience: {patience_counter}/{args.patience}"
+                    )
+
+                    if patience_counter >= args.patience:
+                        print(f"Early stopping triggered after {epoch + 1} epochs")
+                        print(f"Best validation AUC: {best_val_auc:.4f}")
+                        break
 
     print("Best Epoch Test Stats:")
     for k, v in best_epoch_test_stats.items():
